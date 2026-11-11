@@ -11,16 +11,22 @@ use App\Models\Unit;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class UnitResource extends Resource
 {
     protected static ?string $model = Unit::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-scale';
 
-    protected static ?string $recordTitleAttribute = 'Unit';
+    protected static string|UnitEnum|null $navigationGroup = 'Master Data';
+
+    protected static ?string $navigationLabel = 'Units';
+
+    protected static ?int $navigationSort = 2;
+
+    protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema
     {
@@ -34,17 +40,15 @@ class UnitResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => ListUnits::route('/'),
+            'index'  => ListUnits::route('/'),
             'create' => CreateUnit::route('/create'),
-            'edit' => EditUnit::route('/{record}/edit'),
+            'edit'   => EditUnit::route('/{record}/edit'),
         ];
     }
 }
