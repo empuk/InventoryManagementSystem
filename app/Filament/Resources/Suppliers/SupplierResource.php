@@ -11,16 +11,22 @@ use App\Models\Supplier;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class SupplierResource extends Resource
 {
     protected static ?string $model = Supplier::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-truck';
 
-    protected static ?string $recordTitleAttribute = 'Supplier';
+    protected static string|UnitEnum|null $navigationGroup = 'Master Data';
+
+    protected static ?string $navigationLabel = 'Suppliers';
+
+    protected static ?int $navigationSort = 3;
+
+    protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema
     {
@@ -34,17 +40,15 @@ class SupplierResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => ListSuppliers::route('/'),
+            'index'  => ListSuppliers::route('/'),
             'create' => CreateSupplier::route('/create'),
-            'edit' => EditSupplier::route('/{record}/edit'),
+            'edit'   => EditSupplier::route('/{record}/edit'),
         ];
     }
 }
